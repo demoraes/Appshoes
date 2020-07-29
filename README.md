@@ -38,7 +38,19 @@ $ npm install ou yarn add
 $ npm start ou yarn start
 
 # A aplicação será aberta na porta:3000 - acesse http://localhost:3000
+
 ```
+
+<p align="center">
+  <a href="mailto:reisub0@gmail.com"><img src="https://image.flaticon.com/icons/svg/725/725643.svg" height="20" width="20" /></a>
+  <a href="https://linkedin.com/in/govind-kp"><img src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/linkedin.svg" height="20"     width="20" /></a>
+</p>
+
+<p align="left">
+  <img src="https://github-readme-stats.vercel.app/api?username=reisub0&show_icons=true" alt="reisub0" />
+
+</p>
+<p align="left"> </p>
 
 ## 🤔 Como contribuir
 
