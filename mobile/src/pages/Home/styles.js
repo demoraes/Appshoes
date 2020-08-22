@@ -1,67 +1,55 @@
-import styled from 'styled-components';
-import { darken } from 'polished';
+import styled from 'styled-components/native';
+import { RectButton } from 'react-native-gesture-handler';
+// import { darken } from 'polished';
 
-export const ProductList = styled.ul`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 20px;
-  list-style: none;
+export const Container = styled.View`
+  background: #fff;
+  padding: 10px;
+  margin: 15px;
+  border-radius: 4px;
+  width: 260px;
+`;
 
-  li {
-    display: flex;
-    flex-direction: column;
-    background: #fff;
-    border-radius: 4px;
-    padding: 20px;
+export const ProductImage = styled.Image`
+  height: 200px;
+  width: 240px;
+`;
 
-    img {
-      align-self: center;
-      max-width: 250px;
-    }
+export const ProductTitle = styled.Text`
+  font-size: 15px;
+  font-weight: bold;
+  margin-top: 5px;
+`;
 
-    > strong {
-      font-size: 16px;
-      line-height: 20px;
-      color: #333;
-      margin-top: 5px;
-    }
+export const ProductPrice = styled.Text`
+  font-size: 20px;
+  font-weight: bold;
+`;
 
-    > span {
-      font-size: 21px;
-      font-weight: bold;
-      margin: 5px 0 20px;
-    }
+export const Button = styled(RectButton)`
+  flex-direction: row;
+  align-items: center;
+  margin-top: 10px;
+  background: #11275f;
+  border-radius: 5px;
+`;
 
-    button {
-      background: #7159c1;
-      color: #fff;
-      border: 0;
-      border-radius: 4px;
-      overflow: hidden;
-      margin-top: auto;
-      display: flex;
-      align-items: center;
-      transition: background 0.5s;
+export const TextButton = styled.Text`
+  color: #fff;
+  margin-left: 10px;
+  margin-right: 10px;
+  text-align: center;
+`;
 
-      &:hover {
-        background: ${darken(0.03, '#7159c1')};
-      }
+export const ProductAmount = styled.Text`
+  padding: 12px;
+  background: #0e1d42;
 
-      div {
-        display: flex;
-        align-items: center;
-        padding: 12px;
-        background: rgba(0, 0, 0, 0.1);
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+`;
 
-        svg {
-          margin-right: 5px;
-        }
-      }
-      span {
-        flex: 1;
-        text-align: center;
-        font-weight: bold;
-      }
-    }
-  }
+export const ProductAmountText = styled.Text`
+  color: #fff;
+  font-size: 15px;
 `;
