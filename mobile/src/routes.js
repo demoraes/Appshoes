@@ -5,12 +5,24 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Home from './pages/Home';
 import Cart from './pages/Cart';
 
+import Header from './components/Header';
+
 const AppStack = createStackNavigator();
 
 export default function Routes() {
   return (
     <NavigationContainer>
       <AppStack.Navigator>
+        <AppStack.Screen
+          name="Header"
+          component={Header}
+          options={{
+            headerTitle: (props) => <Header {...props} />,
+            headerStyle: {
+              backgroundColor: '#11275f',
+            },
+          }}
+        />
         <AppStack.Screen
           name="Home"
           component={Home}

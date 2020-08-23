@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-// import { Text } from 'react-native';
+import { FlatList } from 'react-native';
 
 import api from '../../services/api';
 
 import {
-  Container,
   ProductImage,
   ProductTitle,
   ProductPrice,
@@ -13,6 +12,7 @@ import {
   TextButton,
   ProductAmount,
   ProductAmountText,
+  Product,
 } from './styles';
 
 class Home extends Component {
@@ -26,13 +26,11 @@ class Home extends Component {
 
   getProducts = async () => {
     try {
-      const response = await api.get('/stock');
+      const response = await api.get('/products');
 
       const data = response.data.map((product) => ({
         ...product,
       }));
-
-      console.tron.log(data);
 
       this.setState({ products: data });
     } catch (error) {
@@ -40,29 +38,38 @@ class Home extends Component {
     }
   };
 
+  renderProduct = ({ item }) => {
+    return (
+      <Product key={item.id}>
+        <ProductImage
+          source={{
+            uri: item.image,
+          }}
+        />
+        <ProductTitle>{item.title}</ProductTitle>
+        <ProductPrice>{item.price}</ProductPrice>
+        <Button>
+          <ProductAmount>
+            <Icon name="add-shopping-cart" color="#FFF" size={15} />
+            <ProductAmountText>3</ProductAmountText>
+          </ProductAmount>
+          <TextButton>ADICIONAR AO CARRINHO</TextButton>
+        </Button>
+      </Product>
+    );
+  };
+
   render() {
     const { products } = this.state;
 
     return (
-      <>
-        <Container>
-          <ProductImage
-            source={{
-              uri:
-                'https://noticiasdemogi.com.br/wp-content/uploads/2020/08/bolsonaro.jpg',
-            }}
-          />
-          <ProductTitle>DWD</ProductTitle>
-          <ProductPrice>R$ 38,00</ProductPrice>
-          <Button>
-            <ProductAmount>
-              <Icon name="add-shopping-cart" color="#FFF" size={15} />
-              <ProductAmountText>3</ProductAmountText>
-            </ProductAmount>
-            <TextButton>ADICIONAR AO CARRINHO</TextButton>
-          </Button>
-        </Container>
-      </>
+      <FlatList
+        horizontal
+        data={products}
+        extraData={this.props}
+        keyExtractor={(item) => String(item.id)}
+        renderItem={this.renderProduct}
+      />
     );
   }
 }

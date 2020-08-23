@@ -2,12 +2,13 @@ import styled from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler';
 // import { darken } from 'polished';
 
-export const Container = styled.View`
+export const Product = styled.View`
   background: #fff;
   padding: 10px;
   margin: 15px;
   border-radius: 4px;
   width: 260px;
+  height: 345px;
 `;
 
 export const ProductImage = styled.Image`
@@ -32,13 +33,13 @@ export const Button = styled(RectButton)`
   margin-top: 10px;
   background: #11275f;
   border-radius: 5px;
+  margin-top: auto;
 `;
 
 export const TextButton = styled.Text`
   color: #fff;
   margin-left: 10px;
   margin-right: 10px;
-  text-align: center;
 `;
 
 export const ProductAmount = styled.Text`
