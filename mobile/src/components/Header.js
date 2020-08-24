@@ -1,9 +1,10 @@
 import React from 'react';
+
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { Wrapper, Container, Logo, BasketContainer, ItemCount } from './styles';
 
-function Header() {
+export default function Header() {
   return (
     <Wrapper>
       <Container>
@@ -16,5 +17,3 @@ function Header() {
     </Wrapper>
   );
 }
-
-export default Header;

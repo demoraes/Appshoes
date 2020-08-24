@@ -1,14 +1,17 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-// import { Container } from './styles';
+import { BasketContainer } from './styles';
 
-const Cart = () => {
+export default function Cart({ navigation }) {
+  function navigateToUsers() {
+    navigation.navigate('Home');
+  }
+
   return (
     <View>
-      <Text>Ola</Text>
+      <Text>Home</Text>
+      <BasketContainer onPress={navigateToUsers} />
     </View>
   );
-};
-
-export default Cart;
+}

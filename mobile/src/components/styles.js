@@ -8,6 +8,15 @@ export const Wrapper = styled.SafeAreaView`
   flex-direction: row;
 `;
 
+export const BasketContainer = styled.TouchableOpacity`
+  height: 24px;
+  width: 24px;
+  flex: 1;
+  align-items: flex-end;
+  justify-content: flex-end;
+  background: red;
+`;
+
 export const Container = styled.View`
   flex-direction: row;
   flex: 1;
@@ -18,16 +27,8 @@ export const Logo = styled.Image.attrs({
   source: logo,
   resizeMode: 'cover',
 })`
-  width: 185px;
+  width: 182px;
   height: 24px;
-`;
-
-export const BasketContainer = styled.TouchableOpacity`
-  height: 24px;
-  width: 24px;
-  flex: 1;
-  align-items: flex-end;
-  justify-content: flex-end;
 `;
 
 export const ItemCount = styled.Text`
