@@ -4,23 +4,21 @@ import logo from '../assets/logo.png';
 
 export const Wrapper = styled.SafeAreaView`
   flex: 0;
-  background: #11275f;
   flex-direction: row;
-`;
-
-export const BasketContainer = styled.TouchableOpacity`
-  height: 24px;
-  width: 24px;
-  flex: 1;
-  align-items: flex-end;
-  justify-content: flex-end;
-  background: red;
 `;
 
 export const Container = styled.View`
   flex-direction: row;
   flex: 1;
   justify-content: space-between;
+`;
+
+export const BasketContainer = styled.TouchableOpacity`
+  flex: 1;
+  height: 24px;
+  width: 24px;
+  justify-content: flex-end;
+  align-items: flex-end;
 `;
 
 export const Logo = styled.Image.attrs({

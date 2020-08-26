@@ -10,7 +10,7 @@ export default function Cart({ navigation }) {
 
   return (
     <View>
-      <Text>Home</Text>
+      <Text>OIAAAA</Text>
       <BasketContainer onPress={navigateToUsers} />
     </View>
   );

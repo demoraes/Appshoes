@@ -9,19 +9,16 @@ import Cart from './pages/Cart';
 
 const AppStack = createStackNavigator();
 
-export default function Routes({ navigation }) {
+export default function Routes() {
   return (
     <NavigationContainer>
       <AppStack.Navigator
-        initialRouteName="Home"
-        screenOptions={{
-          headerTitle: (props) => (
-            <Header {...props} onPress={() => navigation.navigate('Cart')} />
-          ),
+        screenOptions={(navigation) => ({
+          headerTitle: (props) => <Header {...navigation} {...props} />,
           headerStyle: {
             backgroundColor: '#11275f',
           },
-        }}
+        })}
       >
         <AppStack.Screen name="Home" component={Home} />
         <AppStack.Screen name="Cart" component={Cart} />
