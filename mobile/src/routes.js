@@ -2,7 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import Header from './components/Header';
+import Header from './components/Header/Header';
 
 import Home from './pages/Home';
 import Cart from './pages/Cart';
@@ -13,6 +13,7 @@ export default function Routes() {
   return (
     <NavigationContainer>
       <AppStack.Navigator
+        initialRouteName="Home"
         screenOptions={(navigation) => ({
           headerTitle: (props) => <Header {...navigation} {...props} />,
           headerStyle: {

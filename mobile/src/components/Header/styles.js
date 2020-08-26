@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-import logo from '../assets/logo.png';
+import logo from '../../assets/logo.png';
 
 export const Wrapper = styled.SafeAreaView`
   flex: 0;

@@ -4,6 +4,8 @@ import { FlatList } from 'react-native';
 
 import api from '../../services/api';
 
+import Product from '../../components/styles/Product';
+
 import {
   ProductImage,
   ProductTitle,
@@ -12,7 +14,6 @@ import {
   TextButton,
   ProductAmount,
   ProductAmountText,
-  Product,
 } from './styles';
 
 class Home extends Component {

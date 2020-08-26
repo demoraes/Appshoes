@@ -1,14 +1,4 @@
 import styled from 'styled-components/native';
-// import { darken } from 'polished';
-
-export const Product = styled.View`
-  background: #fff;
-  padding: 10px;
-  margin: 15px;
-  border-radius: 4px;
-  width: 260px;
-  height: 345px;
-`;
 
 export const ProductImage = styled.Image`
   height: 200px;
