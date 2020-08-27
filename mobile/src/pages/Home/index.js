@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import PropTypes from 'prop-types';
 import { FlatList } from 'react-native';
 
 import api from '../../services/api';
@@ -17,6 +18,12 @@ import {
 } from './styles';
 
 class Home extends Component {
+  static propTypes = {
+    navigation: PropTypes.shape({
+      navigate: PropTypes.func,
+    }).isRequired,
+  };
+
   state = {
     products: [],
   };
@@ -39,6 +46,12 @@ class Home extends Component {
     }
   };
 
+  handleNavigate = (products) => {
+    const { navigation } = this.props;
+
+    navigation.navigate('Cart', { products });
+  };
+
   renderProduct = ({ item }) => {
     return (
       <Product key={item.id}>
@@ -49,7 +62,7 @@ class Home extends Component {
         />
         <ProductTitle>{item.title}</ProductTitle>
         <ProductPrice>{item.price}</ProductPrice>
-        <Button>
+        <Button onPress={() => this.handleNavigate(item)}>
           <ProductAmount>
             <Icon name="add-shopping-cart" color="#FFF" size={15} />
             <ProductAmountText>3</ProductAmountText>

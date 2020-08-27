@@ -21,19 +21,19 @@ import {
   TotalText,
 } from './styles';
 
-export default function Cart({ navigation }) {
+export default function Cart({ navigation, route }) {
+  const { products } = route.params;
   return (
     <Product style={{ maxWidth: 500, margin: 20 }}>
       <ProductInfo>
         <ProductImage
           source={{
-            uri:
-              'https://ichef.bbci.co.uk/news/410/cpsprodpb/3CC7/production/_112395551_eso2008a.jpg',
+            uri: products.image,
           }}
         />
         <ProductDetails>
-          <ProductTitle>Tênis de Caminhada Leve Confortável</ProductTitle>
-          <ProductPrice>R$ 22,00</ProductPrice>
+          <ProductTitle>{products.title}</ProductTitle>
+          <ProductPrice>{products.price}</ProductPrice>
         </ProductDetails>
         <ProductDelete>
           <Icon name="delete-forever" size={24} color="#11275f" />
@@ -48,7 +48,7 @@ export default function Cart({ navigation }) {
         <ProductControllButton>
           <Icon name="add-circle-outline" size={20} color="#11275f" />
         </ProductControllButton>
-        <ProductSubTotal>R$ 444,00</ProductSubTotal>
+        <ProductSubTotal>123</ProductSubTotal>
       </ProductControll>
 
       <ProductTotal>
