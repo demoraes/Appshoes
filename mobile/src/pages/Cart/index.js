@@ -1,5 +1,9 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
+import { ScrollView } from 'react-native';
+
+import { connect } from 'react-redux';
+
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import Product from '../../components/styles/Product';
@@ -19,45 +23,57 @@ import {
   ProductTotal,
   TotalNumber,
   TotalText,
+  Products,
 } from './styles';
 
-export default function Cart({ navigation, route }) {
-  const { products } = route.params;
+function Cart({ cart, navigation }) {
   return (
-    <Product style={{ maxWidth: 500, margin: 20 }}>
-      <ProductInfo>
-        <ProductImage
-          source={{
-            uri: products.image,
-          }}
-        />
-        <ProductDetails>
-          <ProductTitle>{products.title}</ProductTitle>
-          <ProductPrice>{products.price}</ProductPrice>
-        </ProductDetails>
-        <ProductDelete>
-          <Icon name="delete-forever" size={24} color="#11275f" />
-        </ProductDelete>
-      </ProductInfo>
+    <Product style={{ maxWidth: 500, maxHeight: 500, margin: 20 }}>
+      <ScrollView alwaysBounceVertical>
+        {cart.map((product) => (
+          <Products>
+            <ProductInfo>
+              <ProductImage
+                source={{
+                  uri: product.image,
+                }}
+              />
+              <ProductDetails>
+                <ProductTitle>{product.title}</ProductTitle>
+                <ProductPrice>{product.price}</ProductPrice>
+              </ProductDetails>
+              <ProductDelete>
+                <Icon name="delete-forever" size={24} color="#11275f" />
+              </ProductDelete>
+            </ProductInfo>
 
-      <ProductControll>
-        <ProductControllButton>
-          <Icon name="remove-circle-outline" size={20} color="#11275f" />
-        </ProductControllButton>
-        <ProductAmount value="2" />
-        <ProductControllButton>
-          <Icon name="add-circle-outline" size={20} color="#11275f" />
-        </ProductControllButton>
-        <ProductSubTotal>123</ProductSubTotal>
-      </ProductControll>
+            <ProductControll>
+              <ProductControllButton>
+                <Icon name="remove-circle-outline" size={20} color="#11275f" />
+              </ProductControllButton>
+              <ProductAmount value="2" />
+              <ProductControllButton>
+                <Icon name="add-circle-outline" size={20} color="#11275f" />
+              </ProductControllButton>
+              <ProductSubTotal>123</ProductSubTotal>
+            </ProductControll>
+          </Products>
+        ))}
 
-      <ProductTotal>
-        <TotalText>TOTAL</TotalText>
-        <TotalNumber>R$ 888,00</TotalNumber>
-        <ProductButton>
-          <TextButton>FINALIZAR PEDIDO</TextButton>
-        </ProductButton>
-      </ProductTotal>
+        <ProductTotal>
+          <TotalText>TOTAL</TotalText>
+          <TotalNumber>R$ 888,00</TotalNumber>
+          <ProductButton>
+            <TextButton>FINALIZAR PEDIDO</TextButton>
+          </ProductButton>
+        </ProductTotal>
+      </ScrollView>
     </Product>
   );
 }
+
+const mapStateToProps = (state) => ({
+  cart: state.cart,
+});
+
+export default connect(mapStateToProps)(Cart);

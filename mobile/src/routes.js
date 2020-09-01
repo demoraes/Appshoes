@@ -4,6 +4,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Provider } from 'react-redux';
 
+import './config/ReactotronConfig';
+
 import Header from './components/Header/Header';
 
 import Home from './pages/Home';

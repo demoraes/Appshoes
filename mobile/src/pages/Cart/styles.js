@@ -40,6 +40,7 @@ export const ProductControll = styled.View`
   background: #dfdfdf;
   border-radius: 5px;
   padding: 5px;
+  margin-bottom: 25px;
 `;
 
 export const ProductAmount = styled.TextInput`
@@ -82,3 +83,5 @@ export const TotalText = styled.Text`
   margin-bottom: 5px;
   color: #11275f;
 `;
+
+export const Products = styled.View``;

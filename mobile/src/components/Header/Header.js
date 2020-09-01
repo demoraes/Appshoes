@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { Wrapper, Container, Logo, BasketContainer, ItemCount } from './styles';
 
-function Header({ cartSize }) {
+function Header({ cartSize, navigation }) {
   return (
     <Wrapper>
       <Container>
