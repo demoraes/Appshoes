@@ -1,4 +1,8 @@
+/* eslint-disable import/no-named-as-default */
+/* eslint-disable react/state-in-constructor */
+/* eslint-disable react/static-property-placement */
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import PropTypes from 'prop-types';
 import { FlatList } from 'react-native';
@@ -46,10 +50,13 @@ class Home extends Component {
     }
   };
 
-  handleNavigate = (products) => {
-    const { navigation } = this.props;
+  handleAddProduct = (product) => {
+    const { dispatch } = this.props;
 
-    navigation.navigate('Cart', { products });
+    dispatch({
+      type: 'ADD_TO_CART',
+      product,
+    });
   };
 
   renderProduct = ({ item }) => {
@@ -62,7 +69,7 @@ class Home extends Component {
         />
         <ProductTitle>{item.title}</ProductTitle>
         <ProductPrice>{item.price}</ProductPrice>
-        <Button onPress={() => this.handleNavigate(item)}>
+        <Button onPress={() => this.handleAddProduct(item)}>
           <ProductAmount>
             <Icon name="add-shopping-cart" color="#FFF" size={15} />
             <ProductAmountText>3</ProductAmountText>
@@ -88,4 +95,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default connect()(Home);
