@@ -49,6 +49,7 @@ export const ProductAmount = styled.TextInput`
   border-color: #aaa;
   padding: 5px;
   min-width: 55px;
+  color: #000;
 `;
 
 export const ProductControllButton = styled.TouchableOpacity``;

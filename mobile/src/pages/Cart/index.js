@@ -31,7 +31,7 @@ function Cart({ cart, navigation }) {
     <Product style={{ maxWidth: 500, maxHeight: 500, margin: 20 }}>
       <ScrollView alwaysBounceVertical>
         {cart.map((product) => (
-          <Products>
+          <Products key={product.id}>
             <ProductInfo>
               <ProductImage
                 source={{
@@ -51,7 +51,7 @@ function Cart({ cart, navigation }) {
               <ProductControllButton>
                 <Icon name="remove-circle-outline" size={20} color="#11275f" />
               </ProductControllButton>
-              <ProductAmount value="2" />
+              <ProductAmount>{product.amount}</ProductAmount>
               <ProductControllButton>
                 <Icon name="add-circle-outline" size={20} color="#11275f" />
               </ProductControllButton>
