@@ -26,7 +26,7 @@ import {
   Products,
 } from './styles';
 
-function Cart({ cart, navigation }) {
+function Cart({ cart, dispatch, navigation }) {
   return (
     <Product style={{ maxWidth: 500, maxHeight: 500, margin: 20 }}>
       <ScrollView alwaysBounceVertical>
@@ -42,7 +42,11 @@ function Cart({ cart, navigation }) {
                 <ProductTitle>{product.title}</ProductTitle>
                 <ProductPrice>{product.price}</ProductPrice>
               </ProductDetails>
-              <ProductDelete>
+              <ProductDelete
+                onPress={() =>
+                  dispatch({ type: 'REMOVE_FROM_CART', id: product.id })
+                }
+              >
                 <Icon name="delete-forever" size={24} color="#11275f" />
               </ProductDelete>
             </ProductInfo>
