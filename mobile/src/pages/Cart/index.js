@@ -29,7 +29,15 @@ import {
   Products,
 } from './styles';
 
-function Cart({ cart, removeFromCart, navigation }) {
+function Cart({ cart, removeFromCart, updateAmount, navigation }) {
+  function increment(product) {
+    updateAmount(product.id, product.amount + 1);
+  }
+
+  function decrement(product) {
+    updateAmount(product.id, product.amount - 1);
+  }
+
   return (
     <Product style={{ maxWidth: 500, maxHeight: 500, margin: 20 }}>
       <ScrollView alwaysBounceVertical>
@@ -51,11 +59,11 @@ function Cart({ cart, removeFromCart, navigation }) {
             </ProductInfo>
 
             <ProductControll>
-              <ProductControllButton>
+              <ProductControllButton onPress={() => decrement(product)}>
                 <Icon name="remove-circle-outline" size={20} color="#11275f" />
               </ProductControllButton>
               <ProductAmount>{product.amount}</ProductAmount>
-              <ProductControllButton>
+              <ProductControllButton onPress={() => increment(product)}>
                 <Icon name="add-circle-outline" size={20} color="#11275f" />
               </ProductControllButton>
               <ProductSubTotal>123</ProductSubTotal>
