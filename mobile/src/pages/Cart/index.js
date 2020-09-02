@@ -3,8 +3,11 @@ import React from 'react';
 import { ScrollView } from 'react-native';
 
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
+
+import * as CartActions from '../../store/modules/cart/actions';
 
 import Product from '../../components/styles/Product';
 import {
@@ -26,7 +29,7 @@ import {
   Products,
 } from './styles';
 
-function Cart({ cart, dispatch, navigation }) {
+function Cart({ cart, removeFromCart, navigation }) {
   return (
     <Product style={{ maxWidth: 500, maxHeight: 500, margin: 20 }}>
       <ScrollView alwaysBounceVertical>
@@ -42,11 +45,7 @@ function Cart({ cart, dispatch, navigation }) {
                 <ProductTitle>{product.title}</ProductTitle>
                 <ProductPrice>{product.price}</ProductPrice>
               </ProductDetails>
-              <ProductDelete
-                onPress={() =>
-                  dispatch({ type: 'REMOVE_FROM_CART', id: product.id })
-                }
-              >
+              <ProductDelete onPress={() => removeFromCart(product.id)}>
                 <Icon name="delete-forever" size={24} color="#11275f" />
               </ProductDelete>
             </ProductInfo>
@@ -80,4 +79,7 @@ const mapStateToProps = (state) => ({
   cart: state.cart,
 });
 
-export default connect(mapStateToProps)(Cart);
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(CartActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);
