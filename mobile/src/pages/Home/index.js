@@ -53,10 +53,10 @@ class Home extends Component {
     }
   };
 
-  handleAddProduct = (product) => {
-    const { addToCart } = this.props;
+  handleAddProduct = (id) => {
+    const { addToCartRequest } = this.props;
 
-    addToCart(product);
+    addToCartRequest(id);
   };
 
   renderProduct = ({ item }) => {
@@ -70,7 +70,7 @@ class Home extends Component {
         />
         <ProductTitle>{item.title}</ProductTitle>
         <ProductPrice>{item.price}</ProductPrice>
-        <Button onPress={() => this.handleAddProduct(item)}>
+        <Button onPress={() => this.handleAddProduct(item.id)}>
           <ProductAmount>
             <Icon name="add-shopping-cart" color="#FFF" size={15} />
             <ProductAmountText>{amount[item.id] || 0}</ProductAmountText>
