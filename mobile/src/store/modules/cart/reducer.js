@@ -26,12 +26,23 @@ export default function cart(state = [], action) {
       });
     case '@cart/REMOVE':
       return produce(state, (draft) => {
+        /**
+         * Verifica se possui algum produdo com id igual a da action.id
+         */
         const productIndex = draft.findIndex((p) => p.id === action.id);
 
         if (productIndex >= 0) {
+          /**
+           * spice: usado para remover o produto
+           * productIndex: achar o indice do produto
+           * 1: significa que deve remover apenas 1 produto
+           */
           draft.splice(productIndex, 1);
         }
       });
+    /**
+     * Atualiza a quantidade do produto
+     */
     case '@cart/UPDATE_AMOUNT': {
       if (action.amount <= 0) {
         return state;

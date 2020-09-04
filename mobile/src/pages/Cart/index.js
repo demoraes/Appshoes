@@ -53,6 +53,7 @@ function Cart({ cart, total, removeFromCart, updateAmount, navigation }) {
                 <ProductTitle>{product.title}</ProductTitle>
                 <ProductPrice>{product.price}</ProductPrice>
               </ProductDetails>
+
               <ProductDelete onPress={() => removeFromCart(product.id)}>
                 <Icon name="delete-forever" size={24} color="#11275f" />
               </ProductDelete>
@@ -84,17 +85,31 @@ function Cart({ cart, total, removeFromCart, updateAmount, navigation }) {
 }
 
 /**
- * Pega informações do estado e mapeia em formato de propriedades para o component
+ * Converte pedassos do estado, ou seja reducers, em propriedades para o component
  */
 const mapStateToProps = (state) => ({
+  /**
+   * map: mapeia os products do estado
+   */
   cart: state.cart.map((product) => ({
     ...product,
     subtotal: product.price * product.amount,
   })),
+  /**
+   * reduce: Pega um array e reduzi a um unico valor
+   * total: inicia como 0, e vai somando com product
+   */
   total: state.cart.reduce((total, product) => {
     return total + product.price * product.amount;
   }, 0),
 });
+
+/**
+ * A action removeFromCart é importada de CartActions
+ * essa action é usada para remover o produto do carrinho
+ *
+ * obs: mapDispatchToProps converte actions do redux em propriedades para o component
+ */
 
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators(CartActions, dispatch);

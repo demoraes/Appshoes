@@ -59,8 +59,7 @@ class Home extends Component {
    */
   handleAddProduct = (id) => {
     /**
-     * - Propriedade que é reçebida atraves do connect
-     * - connect: conecta o component com o estado do redux
+     * Propriedade que é reçebida atraves da corverção de actions em propriedades
      */
     const { addToCartRequest } = this.props;
 
@@ -104,14 +103,21 @@ class Home extends Component {
   }
 }
 
+/**
+ * Converte pedassos do estado, ou seja reducers, em propriedades para o component
+ * no caso abaixo está sendo atualizado o amount do produto selecionado
+ */
 const mapStateToProps = (state) => ({
   amount: state.cart.reduce((amount, product) => {
-    amount[product.id] = product.amount || 0;
+    amount[product.id] = product.amount;
 
     return amount;
   }, {}),
 });
 
+/**
+ * Converte actions do redux em propriedades para o component
+ */
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators(CartActions, dispatch);
 /**

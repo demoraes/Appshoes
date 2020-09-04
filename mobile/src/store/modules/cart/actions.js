@@ -12,6 +12,10 @@ export function addToCartSuccess(product) {
   };
 }
 
+/**
+ * Action usada no component Cart
+ */
+
 export function removeFromCart(id) {
   return { type: '@cart/REMOVE', id };
 }
