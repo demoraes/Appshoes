@@ -20,6 +20,10 @@ function Header({ cartSize, navigation }) {
   );
 }
 
+/**
+ * No primeiro parametro o connect recebe a função state onde é retornado o estado do componente, serve para termos acesso aos dados do estado
+ * toda vez que o cartSize é mudado o component é renderizado denovo
+ */
 export default connect((state) => ({
   cartSize: state.cart.length,
 }))(Header);

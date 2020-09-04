@@ -83,6 +83,9 @@ function Cart({ cart, total, removeFromCart, updateAmount, navigation }) {
   );
 }
 
+/**
+ * Pega informações do estado e mapeia em formato de propriedades para o component
+ */
 const mapStateToProps = (state) => ({
   cart: state.cart.map((product) => ({
     ...product,

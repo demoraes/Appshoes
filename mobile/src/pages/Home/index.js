@@ -53,7 +53,15 @@ class Home extends Component {
     }
   };
 
+  /**
+   * - Função disparada quando o usuário clica no botão
+   * - actions sempre conterão um type e o conteudo
+   */
   handleAddProduct = (id) => {
+    /**
+     * - Propriedade que é reçebida atraves do connect
+     * - connect: conecta o component com o estado do redux
+     */
     const { addToCartRequest } = this.props;
 
     addToCartRequest(id);
@@ -106,5 +114,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators(CartActions, dispatch);
-
+/**
+ * connect: conecta o component com o estado do redux
+ */
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
