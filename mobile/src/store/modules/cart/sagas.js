@@ -1,5 +1,6 @@
 import { Alert } from 'react-native';
 import { call, select, put, all, takeLatest } from 'redux-saga/effects';
+import * as RootNavigation from '../../../services/RootNavigation';
 
 import api from '../../../services/api';
 
@@ -44,6 +45,8 @@ function* addToCart({ id }) {
      * Função put: dispara actions no redux
      */
     yield put(addToCartSuccess(data));
+
+    RootNavigation.navigate('Cart');
   }
 }
 
@@ -69,7 +72,7 @@ function* updateAmount({ id, amount }) {
  * obs: redux-saga tambem é capaz de disparar actions.
  */
 
-/**
+/*
  * takeLatest: cadastra outro produto apenas se a chamada api anterior estiver
  * finalizada
  */

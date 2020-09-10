@@ -3,6 +3,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Provider } from 'react-redux';
+import { navigationRef } from './services/RootNavigation';
 
 import './config/ReactotronConfig';
 
@@ -18,7 +19,7 @@ const AppStack = createStackNavigator();
 export default function Routes() {
   return (
     <Provider store={store}>
-      <NavigationContainer>
+      <NavigationContainer ref={navigationRef}>
         <AppStack.Navigator
           initialRouteName="Home"
           screenOptions={(navigation) => ({
