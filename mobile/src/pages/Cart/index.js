@@ -1,9 +1,8 @@
-/* eslint-disable react/prop-types */
-import React from 'react';
-import { ScrollView } from 'react-native';
+/* eslint-disable import/no-named-as-default */
 
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { ScrollView } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -29,19 +28,28 @@ import {
   Products,
 } from './styles';
 
-function Cart({
-  cart,
-  total,
-  removeFromCart,
-  updateAmountRequest,
-  navigation,
-}) {
+export default function Cart({ navigation }) {
+  const total = useSelector((state) =>
+    state.cart.reduce((totalSum, product) => {
+      return totalSum + product.price * product.amount;
+    }, 0)
+  );
+
+  const cart = useSelector((state) =>
+    state.cart.map((product) => ({
+      ...product,
+      subtotal: product.price * product.amount,
+    }))
+  );
+
+  const dispatch = useDispatch();
+
   function increment(product) {
-    updateAmountRequest(product.id, product.amount + 1);
+    dispatch(CartActions.updateAmountRequest(product.id, product.amount + 1));
   }
 
   function decrement(product) {
-    updateAmountRequest(product.id, product.amount - 1);
+    dispatch(CartActions.updateAmountRequest(product.id, product.amount - 1));
   }
 
   return (
@@ -60,7 +68,9 @@ function Cart({
                 <ProductPrice>{product.price}</ProductPrice>
               </ProductDetails>
 
-              <ProductDelete onPress={() => removeFromCart(product.id)}>
+              <ProductDelete
+                onPress={() => dispatch(CartActions.removeFromCart(product.id))}
+              >
                 <Icon name="delete-forever" size={24} color="#11275f" />
               </ProductDelete>
             </ProductInfo>
@@ -89,35 +99,3 @@ function Cart({
     </Product>
   );
 }
-
-/**
- * Converte pedassos do estado, ou seja reducers, em propriedades para o component
- */
-const mapStateToProps = (state) => ({
-  /**
-   * map: mapeia os products do estado
-   */
-  cart: state.cart.map((product) => ({
-    ...product,
-    subtotal: product.price * product.amount,
-  })),
-  /**
-   * reduce: Pega um array e reduzi a um unico valor
-   * total: inicia como 0, e vai somando com product
-   */
-  total: state.cart.reduce((total, product) => {
-    return total + product.price * product.amount;
-  }, 0),
-});
-
-/**
- * A action removeFromCart é importada de CartActions
- * essa action é usada para remover o produto do carrinho
- *
- * obs: mapDispatchToProps converte actions do redux em propriedades para o component
- */
-
-const mapDispatchToProps = (dispatch) =>
-  bindActionCreators(CartActions, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);

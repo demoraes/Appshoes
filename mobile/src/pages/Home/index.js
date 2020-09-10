@@ -1,12 +1,9 @@
 /* eslint-disable import/no-named-as-default */
-/* eslint-disable react/state-in-constructor */
-/* eslint-disable react/static-property-placement */
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import PropTypes from 'prop-types';
-import { FlatList } from 'react-native';
+import { ScrollView } from 'react-native';
 
 import api from '../../services/api';
 
@@ -24,103 +21,57 @@ import {
   ProductAmountText,
 } from './styles';
 
-class Home extends Component {
-  static propTypes = {
-    navigation: PropTypes.shape({
-      navigate: PropTypes.func,
-    }).isRequired,
-  };
+export default function Home() {
+  const [products, setProducts] = useState([]);
 
-  state = {
-    products: [],
-  };
+  const amount = useSelector((state) =>
+    state.cart.reduce((sumAmount, product) => {
+      sumAmount[product.id] = product.amount;
 
-  componentDidMount() {
-    this.getProducts();
-  }
+      return sumAmount;
+    }, {})
+  );
 
-  getProducts = async () => {
-    try {
-      const response = await api.get('/products');
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    async function loadProducts() {
+      const response = await api.get('products');
 
       const data = response.data.map((product) => ({
         ...product,
       }));
 
-      this.setState({ products: data });
-    } catch (error) {
-      console.tron.error(error);
+      setProducts(data);
     }
-  };
 
-  /**
-   * - Função disparada quando o usuário clica no botão
-   * - actions sempre conterão um type e o conteudo
-   */
-  handleAddProduct = (id) => {
-    /**
-     * Propriedade que é reçebida atraves da corverção de actions em propriedades
-     */
-    const { addToCartRequest } = this.props;
+    loadProducts();
+  }, []);
 
-    addToCartRequest(id);
-  };
-
-  renderProduct = ({ item }) => {
-    const { amount } = this.props;
-    return (
-      <Product key={item.id}>
-        <ProductImage
-          source={{
-            uri: item.image,
-          }}
-        />
-        <ProductTitle>{item.title}</ProductTitle>
-        <ProductPrice>{item.price}</ProductPrice>
-        <Button onPress={() => this.handleAddProduct(item.id)}>
-          <ProductAmount>
-            <Icon name="add-shopping-cart" color="#FFF" size={15} />
-            <ProductAmountText>{amount[item.id] || 0}</ProductAmountText>
-          </ProductAmount>
-          <TextButton>ADICIONAR AO CARRINHO</TextButton>
-        </Button>
-      </Product>
-    );
-  };
-
-  render() {
-    const { products } = this.state;
-
-    return (
-      <FlatList
-        horizontal
-        data={products}
-        extraData={this.props}
-        keyExtractor={(item) => String(item.id)}
-        renderItem={this.renderProduct}
-      />
-    );
+  function handleAddProduct(id) {
+    dispatch(CartActions.addToCartRequest(id));
   }
+
+  return (
+    <ScrollView horizontal>
+      {products.map((product) => (
+        <Product key={product.id}>
+          <ProductImage
+            source={{
+              uri: product.image,
+            }}
+          />
+          <ProductTitle>{product.title}</ProductTitle>
+          <ProductPrice>{product.price}</ProductPrice>
+          <Button onPress={() => handleAddProduct(product.id)}>
+            <ProductAmount>
+              <Icon name="add-shopping-cart" color="#FFF" size={15} />
+              <ProductAmountText>{amount[product.id] || 0}</ProductAmountText>
+            </ProductAmount>
+            <TextButton>ADICIONAR AO CARRINHO</TextButton>
+          </Button>
+        </Product>
+      ))}
+    </ScrollView>
+  );
 }
-
-/**
- * Converte pedassos do estado, ou seja reducers, em propriedades para o component
- * no caso abaixo está sendo atualizado o amount do produto selecionado
- */
-const mapStateToProps = (state) => ({
-  amount: state.cart.reduce((amount, product) => {
-    amount[product.id] = product.amount;
-
-    return amount;
-  }, {}),
-});
-
-/**
- * Converte actions do redux em propriedades para o component
- */
-const mapDispatchToProps = (dispatch) =>
-  bindActionCreators(CartActions, dispatch);
-/**
- * connect: conecta o component com o estado do redux
- */
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
