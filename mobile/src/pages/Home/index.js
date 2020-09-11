@@ -8,6 +8,7 @@ import { ScrollView } from 'react-native';
 import api from '../../services/api';
 
 import * as CartActions from '../../store/modules/cart/actions';
+import { formatPrice } from '../../util/format';
 
 import Product from '../../components/styles/Product';
 
@@ -62,7 +63,7 @@ export default function Home() {
             }}
           />
           <ProductTitle>{product.title}</ProductTitle>
-          <ProductPrice>{product.price}</ProductPrice>
+          <ProductPrice>{formatPrice(product.price)}</ProductPrice>
           <Button onPress={() => handleAddProduct(product.id)}>
             <ProductAmount>
               <Icon name="add-shopping-cart" color="#FFF" size={15} />
