@@ -41,6 +41,7 @@ export default function Home() {
 
       const data = response.data.map((product) => ({
         ...product,
+        priceFormatted: formatPrice(product.price),
       }));
 
       setProducts(data);
@@ -63,7 +64,7 @@ export default function Home() {
             }}
           />
           <ProductTitle>{product.title}</ProductTitle>
-          <ProductPrice>{formatPrice(product.price)}</ProductPrice>
+          <ProductPrice>{product.priceFormatted}</ProductPrice>
           <Button onPress={() => handleAddProduct(product.id)}>
             <ProductAmount>
               <Icon name="add-shopping-cart" color="#FFF" size={15} />

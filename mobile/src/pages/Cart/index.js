@@ -6,6 +6,8 @@ import { ScrollView } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import { formatPrice } from '../../util/format';
+
 import * as CartActions from '../../store/modules/cart/actions';
 
 import Product from '../../components/styles/Product';
@@ -30,15 +32,17 @@ import {
 
 export default function Cart({ navigation }) {
   const total = useSelector((state) =>
-    state.cart.reduce((totalSum, product) => {
-      return totalSum + product.price * product.amount;
-    }, 0)
+    formatPrice(
+      state.cart.reduce((totalSum, product) => {
+        return totalSum + product.price * product.amount;
+      }, 0)
+    )
   );
 
   const cart = useSelector((state) =>
     state.cart.map((product) => ({
       ...product,
-      subtotal: product.price * product.amount,
+      subtotal: formatPrice(product.price * product.amount),
     }))
   );
 
@@ -65,7 +69,7 @@ export default function Cart({ navigation }) {
               />
               <ProductDetails>
                 <ProductTitle>{product.title}</ProductTitle>
-                <ProductPrice>{product.price}</ProductPrice>
+                <ProductPrice>{formatPrice(product.price)}</ProductPrice>
               </ProductDetails>
 
               <ProductDelete
